@@ -31,13 +31,34 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
 def score(dice)
   score = 0
-  if dice.empty?
-    return 0
-  elsif dice.include? 5
-    return 50
-  elsif dice.include? 1
-    return 100
+  
+  if dice.include? 1
+    ones = dice.count(1)
+    if ones >= 3
+      score += 1000   # * A set of three ones is 1000 points
+      # * A one (that is not part of a set of three) is worth 100 points.
+      score += (ones - 3) * 100 
+    else
+      score += ones * 100
+    end
   end
+  
+  if dice.include? 5 # * A five (that is not part of a set of three) is worth 50 points.
+    fives = dice.count(5)
+    if fives >= 3
+      score += (fives -3) * 50 
+    else
+      score += fives * 50
+    end
+  end  
+       
+  triples = [2,3,4,5,6]
+  # * A set of three numbers (other than ones) is worth 100 times the
+  #   number. (e.g. three fives is 500 points). 
+  triples.each do |n|
+    score += (n*100) if dice.count(n) >= 3
+  end
+
   score
 end
 
