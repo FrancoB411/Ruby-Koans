@@ -159,6 +159,7 @@ class AboutClassMethods < EdgeCase::Koan
   #
   # Which do you prefer and why?
   # Are there times you might prefer one over the other?
+  # because in the second example instance variables could appear unique to subclasses rather than shared among them?
 
   # ------------------------------------------------------------------
 
